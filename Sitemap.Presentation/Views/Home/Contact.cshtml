@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<script type="text/javascript">
+    function OnSuccess(data) {
+        var results = $('#results'); // получаем нужный элемент
+       // results.empty(); //очищаем элемент
+        for (var i = 0; i < data.length; i++) {
+            results.append('<li>' + data[i].Name + '</li>'); // добавляем данные в список
+        }
+    }
+</script>
+@using (Ajax.BeginForm("head", new AjaxOptions { OnSuccess = "OnSuccess" }))
+{
+    <input type="text" name="name" />
+    <input type="submit" value="Поиск" />
+}
+<div id="results"></div>
+    <address>
+        One Microsoft Way<br />
+        Redmond, WA 98052-6399<br />
+        <abbr title="Phone">P:</abbr>
+        425.555.0100
+    </address>
+
+    <address>
+        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    </address>

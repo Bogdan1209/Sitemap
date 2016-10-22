@@ -1,0 +1,49 @@
+﻿@model Sitemap.Presentation.Models.SitemapData.RequestHistory
+<div ng-app="ResultAngl" class="modal-body">
+    <div class="alert alert-warning">
+        <span class=""></span>
+        <h2>Delete history</h2>
+        <dl>
+            <dt>Site</dt>
+            <dd>
+                @Html.DisplayFor(model => model.SiteDomain)
+            </dd>
+            <dt>Time</dt>
+            <dd>
+                @Html.DisplayFor(model => model.TimeOfStart)
+            </dd>
+        </dl>
+    </div>
+    <div ng-controller="ResultController">
+        <input type="number" placeholder="Enter your name" value="@Model.ReqestHistoryId" ng-model="details.firstName" />
+        &nbsp;
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <button type="submit" ng-click="deleteHistory(details)"
+                        id="approve-btn" class="btn btn-danger">
+                    Confirm delete
+                </button>
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#approve-btn').click(function () {
+            $('#modal-container').modal('hide');
+            var thisId = $('#search').val();
+            $.post("/api/ResultApi/DeleteHistoryConfirmed",
+                {
+                    id: thisId
+                },
+            function (status) {
+                alert("Status: " + status);
+            })
+        });
+    });
+</script>
+

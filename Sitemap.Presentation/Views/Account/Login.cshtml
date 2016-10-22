@@ -1,0 +1,28 @@
+﻿@model Sitemap.Presentation.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+<div class="container">
+    <h2>Log in</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <br />
+            @Html.ValidationSummary()
+            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+            <p>
+                <label>Email</label><br />
+                @Html.EditorFor(x => x.Email)
+            </p>
+            <p>
+                <label>Password</label><br />
+                @Html.EditorFor(x => x.Password)
+            </p>
+            <p><button type="submit">Log in</button></p>
+        </div>
+    }
+</div>

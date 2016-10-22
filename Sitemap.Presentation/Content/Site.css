@@ -1,0 +1,74 @@
+﻿body {
+    padding-top: 40px;
+    padding-bottom: 0px;
+}
+
+.glyphicon-remove {
+    color: #ff6666;
+}
+
+.glyphicon-remove:hover {
+    color: #6f4dff;
+}
+
+.jumbotron { 
+    background-color: #52b1ef;
+    color: #ffffff;
+}
+
+.modal{
+    top:15%;
+    right:20%;
+    left: 20%;
+    outline: none;
+}
+
+#Table{
+    padding: 20px, 10px !important;
+    margin: 20px, 10px !important;
+}
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #52b1ef;
+    z-index: 9999;
+    border: 0;
+    font-size: 13px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 3px;
+    border-radius: 0;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #52b1ef !important;
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+    
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}

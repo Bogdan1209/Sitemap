@@ -1,0 +1,40 @@
+﻿@model Sitemap.Presentation.Models.RegisterModel
+
+@{ 
+    ViewBag.Title = "Sign up";
+}
+<div class="container">
+
+    <h2>Sign up</h2>
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+
+        <div>
+            <br />
+            @Html.ValidationSummary(false)
+
+            <div>
+                <p>
+                    <label>Email</label><br />
+                    @Html.EditorFor(model => model.Email)
+                </p>
+                <p>
+                    <label>Login</label><br />
+                    @Html.EditorFor(model => model.UserName)
+                </p>
+                <p>
+                    <label>Password</label><br />
+                    @Html.EditorFor(model => model.Password)
+                </p>
+                <p>
+                    <label>Confirm Password</label><br />
+                    @Html.EditorFor(model => model.PasswordConfirm)
+                </p>
+                    <p><button type="submit">Sign up</button></p>
+            </div>
+         </div>
+    }
+</div>

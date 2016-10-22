@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+
+<div class="jumbotron text-center" ng-app="ResultAngl" ng-controller="ResultController">
+    <h1>Evaluation of websites</h1>
+    <p>Enter URL address into the field below</p>
+
+    <div><span id="notification" style="color:red;font-size:15px;"></span></div>
+
+    <div>
+        <input type="text" name="url" ng-model="url" class="form-control" size="60" placeholder="URL of site">
+        <input type="submit" value="Отправить" class="btn btn-info" ng-click="startEvaluation(url)" />
+    </div>
+    {{evalutionResult}}
+</div>
+@{Html.RenderPartial("StartEvaluation");}
+
+@section scripts{
+    <script src="~/Scripts/ResultAng.js"></script>
+    
+}
