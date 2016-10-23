@@ -4,18 +4,67 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using Sitemap.Presentation.Models.SitemapData;
 
 namespace Sitemap.Presentation.Services
 {
     class ParseService
     {
+        public void SendResponse(List<string> urls)//
+        {
+            for (int i = 0; i < urls.Count - 1; i++)
+            {
+                Stopwatch requestTime = Stopwatch.StartNew();
+                HttpWebResponse httpWebResponse = GetResponse(urls[i]);
+                requestTime.Stop();
+                if(httpWebResponse == null)
+                {
+                    continue;
+                }
+                SavedUrl currentUrl = urlFromHistory.FirstOrDefault(c => c.Url == sitemapLinks[i]);
+                if (currentUrl == null)
+                {
+                    currentUrl = new SavedUrl
+                    {
+                        Url = sitemapLinks[i],
+                        MaxValue = (int)responseTime.ElapsedMilliseconds,
+                        MinValue = (int)responseTime.ElapsedMilliseconds
+                    };
+                    uow.SavedUrls.Create(currentUrl);
+                }
+                else
+                {
+                    if (currentUrl.MaxValue < responseTime.ElapsedMilliseconds)
+                    {
+                        currentUrl.MaxValue = (int)responseTime.ElapsedMilliseconds;
+                        uow.SavedUrls.Update(currentUrl);
+                    }
+                    else if (currentUrl.MinValue > responseTime.ElapsedMilliseconds)
+                    {
+                        currentUrl.MinValue = (int)responseTime.ElapsedMilliseconds;
+                        uow.SavedUrls.Update(currentUrl);
+                    }
+                }
+                ResponseTime newResponseTime = new ResponseTime
+                {
+                    RequestHistoryId = historyId,
+                    UrlId = currentUrl.Id,
+                    TimeOfResponse = (int)responseTime.ElapsedMilliseconds
+                };
+                uow.ResponseTime.Create(newResponseTime);
+
+            }
+        }
+
         public async Task<string> DownloadDocumentAsync(string address)
         {
             string text;
             var client = new WebClient();
+            Uri path = new Uri(address);
             try
             {
-                text = client.DownloadString(address);
+                text = await client.DownloadStringTaskAsync(path);
                 return text;
             }
             catch

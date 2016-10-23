@@ -11,29 +11,17 @@ using Sitemap.Presentation.Repositories;
 
 namespace Sitemap.Presentation.Services
 {
-    class PageReaderService
+    class PageReaderService : ParseService
     {
-        UnitOfWork uow = new UnitOfWork();
+        UnitOfWork uow = new UnitOfWork();//use ninject
         List<string> urls = new List<string>();
         List<string> readed = new List<string>();
-
-        //public PageReaderService(string path, int notMore, string userId, int historyId)
-        //{
-        //    this.urls.Add(path);
-        //    LinksSearchOnPage(urls, notMore, historyId);
-        //}
-
-        //public PageReaderService(string path, string userId, int historyId)
-        //{
-        //    LinksSearchOnSitemap(path, historyId);
-        //}
 
         public async Task LinksSearchOnSitemap(string path, int historyId)
         {
             Uri domain = new Uri(path);
-            ParseService parserClass = new ParseService();
-            string xmlFile = await parserClass.DownloadDocumentAsync(path);
-            List<string> sitemapLinks = parserClass.XmlLinksParser(xmlFile);
+            string xmlFile = await DownloadDocumentAsync(path);
+            List<string> sitemapLinks = XmlLinksParser(xmlFile);
             if (sitemapLinks == null)
             {
                 return;
@@ -49,17 +37,21 @@ namespace Sitemap.Presentation.Services
             for (int i = 0; i < sitemapLinks.Count; i++)
             {
                 Stopwatch responseTime = Stopwatch.StartNew();
-                using (HttpWebResponse httpWebResponse = parserClass.GetResponse(sitemapLinks[i]))
+                using (HttpWebResponse httpWebResponse = GetResponse(sitemapLinks[i]))
                 {
                     responseTime.Stop();
+                    if (httpWebResponse == null)
+                    {
+                        continue;
+                    }
                 }
+                
                 SavedUrl currentUrl = urlFromHistory.FirstOrDefault(c => c.Url == sitemapLinks[i]);
                 if (currentUrl == null)
                 {
                     currentUrl = new SavedUrl { Url = sitemapLinks[i], MaxValue = (int)responseTime.ElapsedMilliseconds,
                         MinValue = (int)responseTime.ElapsedMilliseconds };
                     uow.SavedUrls.Create(currentUrl);
-                    await uow.SaveAsync();
                 }
                 else
                 {
@@ -78,30 +70,20 @@ namespace Sitemap.Presentation.Services
                     TimeOfResponse = (int)responseTime.ElapsedMilliseconds };
                 uow.ResponseTime.Create(newResponseTime);
                 await uow.SaveAsync();
+                
             }
         }
 
-        public void LinksSearchOnPage(string url, int notMore, int historyId)
+        public async Task LinksSearchOnPage(string url, int notMore, int historyId)
         {
             urls.Add(url);
-            ParseService parserClass = new ParseService();
             for (int i = 0; i <= urls.Count - 1; i++)
             {
-
                 try
                 {
-                    Stopwatch readPage = Stopwatch.StartNew();
-                    HttpWebResponse httpWebResponse = parserClass.GetResponse(urls[i]);
-                    readPage.Stop();
-                    Stream stream = httpWebResponse.GetResponseStream();
-                    StreamReader reader = new StreamReader(stream, Encoding.GetEncoding(httpWebResponse.CharacterSet));
-
-
-                    Stopwatch parse = Stopwatch.StartNew();
-                    List<string> links = parserClass.HtmlLinksParser(reader.ReadToEnd());
-                    parse.Stop();
-                    parserClass.Standardize(links, urls[i], urls);
-
+                    string path = await DownloadDocumentAsync(urls[i]);
+                    List<string> links = HtmlLinksParser(path);//find links on page
+                    Standardize(links, urls[i], urls);
                     if (i >= notMore)
                     {
                         break;
@@ -114,6 +96,7 @@ namespace Sitemap.Presentation.Services
                     i--;
                 }
             }
+
         }
     }
 }

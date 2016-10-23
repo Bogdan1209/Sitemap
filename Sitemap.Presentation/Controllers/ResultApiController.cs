@@ -55,7 +55,7 @@ namespace Sitemap.Presentation.Controllers
         }
 
         [HttpPost]
-        public async void DeleteHistoryConfirmedAsync([FromBody] int id)
+        public async Task DeleteHistoryConfirmedAsync([FromBody] int id)
         {
             uow.Histories.DeleteAsync(id);
             await uow.SaveAsync();

@@ -21,6 +21,10 @@ namespace Sitemap.Presentation.Repositories
         {
             db.SavedUrls.Add(item);
         }
+        public void CreateList(List<SavedUrl> urls)
+        {
+            db.SavedUrls.AddRange(urls);
+        }
 
         public async Task<List<SavedUrl>> GetAsync(int id)
         {

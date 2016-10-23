@@ -11,6 +11,7 @@ using Sitemap.Presentation.Services;
 using Sitemap.Presentation.Repositories;
 using Sitemap.Presentation.Interfaces;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Sitemap.Presentation.Controllers
 {
@@ -29,10 +30,11 @@ namespace Sitemap.Presentation.Controllers
         }
 
         [HttpPost]
-        public void StartEvaluation(string url) //make it in api
+        public async Task<string> StartEvaluation(string url) //make it in api
         {
             StartResponseEvaluator result = new StartResponseEvaluator();
-            result.StartEvaluation(url, User.Identity.GetUserId(), 500);
+            string res = await result.StartEvaluation(url, User.Identity.GetUserId(), 500);
+            return res;
         }
 
         public ActionResult About()

@@ -12,18 +12,12 @@ namespace Sitemap.Presentation.Controllers
 {
     public class HomeApiController : ApiController
     {
-        //[HttpPost]
-        //public async Task<string> PostURlForStart(string url)
-        //{
-        //    StartResponseEvaluator result = new StartResponseEvaluator();
-        //    var res = await result.StartEvaluation(url, User.Identity.GetUserId(), 500);
-        //    return res;
-        //}
         [HttpPost]
-        public  void PostURlForStart(HttpRequestMessage request,[FromBody] string url)
+        public async Task<string> PostURlForStart(HttpRequestMessage request,[FromBody] string url)
         {
             StartResponseEvaluator result = new StartResponseEvaluator();
-            var res = result.StartEvaluation(url, User.Identity.GetUserId(), 500);
+            var res = await result.StartEvaluation(url, User.Identity.GetUserId(), 500);
+            return res;
             
         }
     }

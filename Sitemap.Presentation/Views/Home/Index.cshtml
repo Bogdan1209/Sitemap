@@ -9,13 +9,13 @@
 
     <div><span id="notification" style="color:red;font-size:15px;"></span></div>
 
-    <div>
+    <form class="form-inline">
         <input type="text" name="url" ng-model="url" class="form-control" size="60" placeholder="URL of site">
         <input type="submit" value="Отправить" class="btn btn-info" ng-click="startEvaluation(url)" />
-    </div>
+    </form>
     {{evalutionResult}}
 </div>
-@{Html.RenderPartial("StartEvaluation");}
+
 
 @section scripts{
     <script src="~/Scripts/ResultAng.js"></script>

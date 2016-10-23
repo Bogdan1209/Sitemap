@@ -12,6 +12,7 @@ namespace Sitemap.Presentation.Interfaces
         List<T> FindByDomain(string url);
         Task<T> FindByUrlAsync(string url);
         void Create(T item);
+        void CreateList(List<T> urls);
         void Update(T item);
         Task<List<UrlViewModel>> GetRespondTimeAsync(int historyId);
     }
