@@ -11,8 +11,10 @@ namespace Sitemap.Presentation.Models
     public class ApplicationUser:IdentityUser
     {
         public ICollection<RequestHistory> Histories { get; set; }
+        public ICollection<ExtremeValuesModels> ExtremeValues { get; set; }
         public ApplicationUser()
         {
+            ExtremeValues = new List<ExtremeValuesModels>();
             Histories = new List<RequestHistory>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

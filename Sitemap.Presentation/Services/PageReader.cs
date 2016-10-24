@@ -14,7 +14,6 @@ namespace Sitemap.Presentation.Services
     class PageReaderService : ParseService
     {
         UnitOfWork uow = new UnitOfWork();//use ninject
-        List<string> urls = new List<string>();
         List<string> readed = new List<string>();
 
         public async Task LinksSearchOnSitemap(string path, int historyId)
@@ -28,46 +27,42 @@ namespace Sitemap.Presentation.Services
             }
 
             List<SavedUrl> urlFromHistory = new List<SavedUrl>();
-            RequestHistory beforeHistoriesOfThisDomain = await uow.Histories.FindByDomainAsync(domain.Host);
-            if (beforeHistoriesOfThisDomain != null)
+            RequestHistory previousHistoriesOfThisDomain = await uow.Histories.FindByDomainAsync(domain.Host);
+            if (previousHistoriesOfThisDomain != null)
             {
                 urlFromHistory = uow.SavedUrls.FindByDomain(domain.Host);
             }
 
             for (int i = 0; i < sitemapLinks.Count; i++)
             {
-                Stopwatch responseTime = Stopwatch.StartNew();
-                using (HttpWebResponse httpWebResponse = GetResponse(sitemapLinks[i]))
+                int responseTime = GetResponse(sitemapLinks[i]);
+                if(responseTime == -1)
                 {
-                    responseTime.Stop();
-                    if (httpWebResponse == null)
-                    {
-                        continue;
-                    }
+                    continue;
                 }
                 
                 SavedUrl currentUrl = urlFromHistory.FirstOrDefault(c => c.Url == sitemapLinks[i]);
-                if (currentUrl == null)
-                {
-                    currentUrl = new SavedUrl { Url = sitemapLinks[i], MaxValue = (int)responseTime.ElapsedMilliseconds,
-                        MinValue = (int)responseTime.ElapsedMilliseconds };
-                    uow.SavedUrls.Create(currentUrl);
-                }
-                else
-                {
-                    if(currentUrl.MaxValue < responseTime.ElapsedMilliseconds)
-                    {
-                        currentUrl.MaxValue = (int)responseTime.ElapsedMilliseconds;
-                        uow.SavedUrls.Update(currentUrl);
-                    }
-                    else if (currentUrl.MinValue > responseTime.ElapsedMilliseconds)
-                    {
-                        currentUrl.MinValue = (int)responseTime.ElapsedMilliseconds;
-                        uow.SavedUrls.Update(currentUrl);
-                    }
-                }
+                //if (currentUrl == null)
+                //{
+                //    currentUrl = new SavedUrl { Url = sitemapLinks[i], MaxValue = responseTime,
+                //        MinValue = responseTime };
+                //    uow.SavedUrls.Create(currentUrl);
+                //}
+                //else
+                //{
+                //    if(currentUrl.MaxValue < responseTime)
+                //    {
+                //        currentUrl.MaxValue = responseTime;
+                //        uow.SavedUrls.Update(currentUrl);
+                //    }
+                //    else if (currentUrl.MinValue > responseTime)
+                //    {
+                //        currentUrl.MinValue = responseTime;
+                //        uow.SavedUrls.Update(currentUrl);
+                //    }
+                //}
                 ResponseTime newResponseTime = new ResponseTime { RequestHistoryId = historyId, UrlId = currentUrl.Id,
-                    TimeOfResponse = (int)responseTime.ElapsedMilliseconds };
+                    TimeOfResponse = responseTime};
                 uow.ResponseTime.Create(newResponseTime);
                 await uow.SaveAsync();
                 
@@ -76,27 +71,60 @@ namespace Sitemap.Presentation.Services
 
         public async Task LinksSearchOnPage(string url, int notMore, int historyId)
         {
+            Uri domain = new Uri(url);
+            List<string> urls = new List<string>();
             urls.Add(url);
-            for (int i = 0; i <= urls.Count - 1; i++)
-            {
-                try
-                {
-                    string path = await DownloadDocumentAsync(urls[i]);
-                    List<string> links = HtmlLinksParser(path);//find links on page
-                    Standardize(links, urls[i], urls);
-                    if (i >= notMore)
-                    {
-                        break;
-                    }
-                    readed.Add(urls[i]);
-                }
-                catch (Exception)
-                {
-                    urls.Remove(urls[i]);
-                    i--;
-                }
-            }
 
+            urls = await FindUrlsAsync(urls, notMore);
+            //find urls in database
+            List<SavedUrl> urlFromHistory = new List<SavedUrl>();
+            RequestHistory previousHistoriesOfThisDomain = await uow.Histories.FindByDomainAsync(domain.Host);
+            if (previousHistoriesOfThisDomain != null)
+            {
+                urlFromHistory = uow.SavedUrls.FindByDomain(domain.Host);
+            }
+            for (int i = 0; i < urls.Count; i++)
+            {
+                int responseTime = GetResponse(urls[i]);
+                if (responseTime == -1)
+                {
+                    continue;
+                }
+
+                SavedUrl currentUrl = urlFromHistory.FirstOrDefault(c => c.Url == urls[i]);
+                //if (currentUrl == null)
+                //{
+                //    currentUrl = new SavedUrl
+                //    {
+                //        Url = urls[i],
+                //        MaxValue = responseTime,
+                //        MinValue = responseTime
+                //    };
+                //    uow.SavedUrls.Create(currentUrl);
+                //    await uow.SaveAsync();
+                //}
+                //else
+                //{
+                //    if (currentUrl.MaxValue < responseTime)
+                //    {
+                //        currentUrl.MaxValue = responseTime;
+                //        uow.SavedUrls.Update(currentUrl);
+                //    }
+                //    else if (currentUrl.MinValue > responseTime)
+                //    {
+                //        currentUrl.MinValue = responseTime;
+                //        uow.SavedUrls.Update(currentUrl);
+                //    }
+                //}
+                ResponseTime newResponseTime = new ResponseTime
+                {
+                    RequestHistoryId = historyId,
+                    UrlId = currentUrl.Id,
+                    TimeOfResponse = responseTime
+                };
+                uow.ResponseTime.Create(newResponseTime);
+                await uow.SaveAsync();
+            }
         }
     }
 }

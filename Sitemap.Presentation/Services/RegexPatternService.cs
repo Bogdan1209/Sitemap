@@ -9,14 +9,14 @@ namespace Sitemap.Presentation.Services
     class RegexPatternService
     {
         ///<summary>
-        ///Return a URL without scheme, if it's necessary
+        ///Add scheme to url, if it's necessary
         ///</summary>
-        public string CheckHttp(string url)
+        public string CheckHttp(string url, string scheme)
         {
-            Regex regexHttp = new Regex(@"^https://|^http://");
-            if (Regex.IsMatch(url, regexHttp.ToString()))
+            Regex regexHttp = new Regex(@"^"+scheme);
+            if (!Regex.IsMatch(url, regexHttp.ToString()))
             {
-                return regexHttp.Replace(url, string.Empty);
+                return scheme + url;
             }
             return url;
 

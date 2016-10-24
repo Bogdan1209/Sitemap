@@ -229,6 +229,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\UpdateTableHub.cs" />
+    <Compile Include="Interfaces\IExtremeValues.cs" />
     <Compile Include="Interfaces\IHistoryRepo.cs" />
     <Compile Include="Interfaces\IResponseTimeRepo.cs" />
     <Compile Include="Interfaces\ISitemapUrlRepo.cs" />
@@ -253,18 +254,28 @@
     <Compile Include="Migrations\201609260842378_migr3.Designer.cs">
       <DependentUpon>201609260842378_migr3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610241155277_migr4.cs" />
+    <Compile Include="Migrations\201610241155277_migr4.Designer.cs">
+      <DependentUpon>201610241155277_migr4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610241206558_migr5.cs" />
+    <Compile Include="Migrations\201610241206558_migr5.Designer.cs">
+      <DependentUpon>201610241206558_migr5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\ApplicationContext.cs" />
     <Compile Include="Models\Account\ApplicationUser.cs" />
     <Compile Include="Models\Account\ApplicationUserManager.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
+    <Compile Include="Models\SitemapData\ExtremeValuesModels.cs" />
     <Compile Include="Models\SitemapData\ViewModels.cs" />
     <Compile Include="Models\SitemapData\RequestHistoryModels.cs" />
     <Compile Include="Models\SitemapData\ResponseTimeModels.cs" />
     <Compile Include="Models\SitemapData\SavedUrlModels.cs" />
     <Compile Include="NinjectFolder\NinjectDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ExtremeValuesRepo.cs" />
     <Compile Include="Repositories\HistoryRepo.cs" />
     <Compile Include="Repositories\ResponseTimeRepo.cs" />
     <Compile Include="Repositories\SitemapUrlRepo.cs" />
@@ -1162,6 +1173,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609260842378_migr3.resx">
       <DependentUpon>201609260842378_migr3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610241155277_migr4.resx">
+      <DependentUpon>201610241155277_migr4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610241206558_migr5.resx">
+      <DependentUpon>201610241206558_migr5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

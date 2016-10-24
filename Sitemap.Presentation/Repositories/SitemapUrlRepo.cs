@@ -49,18 +49,20 @@ namespace Sitemap.Presentation.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task<List<UrlViewModel>> GetRespondTimeAsync(int historyId)
+        public async Task<List<UrlViewModel>> GetRespondTimeAsync(int historyId, string userId)
         {
             List<UrlViewModel> evaluatedUrl = await (from history in db.RequestHistories
                                 join responseTime in db.ResponseTime on history.ReqestHistoryId equals responseTime.RequestHistoryId
                                 where history.ReqestHistoryId == historyId
                                 join savedUrl in db.SavedUrls on responseTime.UrlId equals savedUrl.Id
-                                orderby savedUrl.MinValue
+                                join extremeValues in db.ExtremeValues on savedUrl.Id equals extremeValues.UrlId
+                                where extremeValues.UserId == userId
+                                orderby extremeValues.MinValue
                                 select new UrlViewModel
                                 {
                                     Url = savedUrl.Url,
-                                    MinValue = savedUrl.MinValue,
-                                    MaxValue = savedUrl.MaxValue,
+                                    MinValue = extremeValues.MinValue,
+                                    MaxValue = extremeValues.MaxValue,
                                     CurrentValue = responseTime.TimeOfResponse
                                 }).ToListAsync();
 

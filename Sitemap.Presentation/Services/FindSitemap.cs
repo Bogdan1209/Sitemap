@@ -40,7 +40,7 @@ namespace Sitemap.Presentation.Services
             {
                 return pathes;
             }
-            else if (parserClass.GetResponse(pathToSitemap) != null)
+            else if (parserClass.GetResponse(pathToSitemap) != -1)
             {
                 urls.Add(pathToSitemap);
                 return urls;
@@ -94,7 +94,7 @@ namespace Sitemap.Presentation.Services
             Regex regexSearchSitemapInRobots = new Regex(@"(?<=sitemap: )(https://|http://)(\w|\W)+\.xml", RegexOptions.IgnoreCase);
             try
             {
-                if (parserClass.GetResponse(URL) != null)
+                if (parserClass.GetResponse(URL) != -1)
                 {
                     string document = await parserClass.DownloadDocumentAsync(URL);
                     Match pathToSitemap = regexSearchSitemapInRobots.Match(document);

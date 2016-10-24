@@ -11,50 +11,28 @@ namespace Sitemap.Presentation.Services
 {
     class ParseService
     {
-        public void SendResponse(List<string> urls)//
+        public async Task<List<string>> FindUrlsAsync(List<string> urls, int notMore)
         {
-            for (int i = 0; i < urls.Count - 1; i++)
+            for (int i = 0; i <= urls.Count - 1; i++)
             {
-                Stopwatch requestTime = Stopwatch.StartNew();
-                HttpWebResponse httpWebResponse = GetResponse(urls[i]);
-                requestTime.Stop();
-                if(httpWebResponse == null)
+                try
                 {
-                    continue;
-                }
-                SavedUrl currentUrl = urlFromHistory.FirstOrDefault(c => c.Url == sitemapLinks[i]);
-                if (currentUrl == null)
-                {
-                    currentUrl = new SavedUrl
+                    
+                    string path = await DownloadDocumentAsync(urls[i]);
+                    List<string> links = HtmlLinksParser(path);//find links on page
+                    Standardize(links, urls[i], urls, urls.Count, notMore);
+                    if (urls.Count >= notMore)
                     {
-                        Url = sitemapLinks[i],
-                        MaxValue = (int)responseTime.ElapsedMilliseconds,
-                        MinValue = (int)responseTime.ElapsedMilliseconds
-                    };
-                    uow.SavedUrls.Create(currentUrl);
-                }
-                else
-                {
-                    if (currentUrl.MaxValue < responseTime.ElapsedMilliseconds)
-                    {
-                        currentUrl.MaxValue = (int)responseTime.ElapsedMilliseconds;
-                        uow.SavedUrls.Update(currentUrl);
-                    }
-                    else if (currentUrl.MinValue > responseTime.ElapsedMilliseconds)
-                    {
-                        currentUrl.MinValue = (int)responseTime.ElapsedMilliseconds;
-                        uow.SavedUrls.Update(currentUrl);
+                        break;
                     }
                 }
-                ResponseTime newResponseTime = new ResponseTime
+                catch (Exception)
                 {
-                    RequestHistoryId = historyId,
-                    UrlId = currentUrl.Id,
-                    TimeOfResponse = (int)responseTime.ElapsedMilliseconds
-                };
-                uow.ResponseTime.Create(newResponseTime);
-
+                    urls.Remove(urls[i]);
+                    i--;
+                }
             }
+            return urls;
         }
 
         public async Task<string> DownloadDocumentAsync(string address)
@@ -77,14 +55,16 @@ namespace Sitemap.Presentation.Services
             }
 
         }
-        public HttpWebResponse GetResponse(string url)// DELETE CONSOLE!!!
+        public int GetResponse(string url)// DELETE CONSOLE!!!
         {
             try
             {
                 HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.AllowAutoRedirect = false;
+                Stopwatch responseTime = Stopwatch.StartNew();
                 HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                return httpWebResponse;
+                responseTime.Stop();
+                return (int)responseTime.ElapsedMilliseconds;
             }
             catch (WebException webExcp) //rewrite it
             {
@@ -109,11 +89,11 @@ namespace Sitemap.Presentation.Services
                            + httpResponse.StatusCode);
                     }
                 }
-                return null;
+                return -1;
             }
             catch (Exception)
             {
-                return null;
+                return -1;
             }
         }
         public List<string> HtmlLinksParser(string html)
@@ -155,7 +135,7 @@ namespace Sitemap.Presentation.Services
                 return null;
             }
         }
-        public void Standardize(List<string> pageLinks, string pagePath, List<string> urls)
+        public void Standardize(List<string> pageLinks, string pagePath, List<string> urls, int numberUrls, int notMore)
         {
             var uri = new Uri(pagePath);
             string scheme = uri.Scheme + "://";
@@ -173,7 +153,8 @@ namespace Sitemap.Presentation.Services
                 url = regexPattern.RelativePath(url, pagePath);
                 url = regexPattern.RemoveDoubleBSlash(url);
                 url = regexPattern.RootRelativePathToAbsolute(url, domain);
-                if (!regexPattern.CheckDomain(url, host))
+                url = regexPattern.CheckHttp(url, scheme);
+                if (!regexPattern.CheckDomain(url, domain))
                 {
                     continue;
                 }
@@ -181,6 +162,10 @@ namespace Sitemap.Presentation.Services
                 if (!urls.Contains(url))
                 {
                     urls.Add(url);
+                }
+                if(urls.Count >= notMore)
+                {
+                    break;
                 }
 
             }
