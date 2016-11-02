@@ -15,5 +15,6 @@ namespace Sitemap.Presentation.Interfaces
         void CreateList(List<T> urls);
         void Update(T item);
         Task<List<UrlViewModel>> GetRespondTimeAsync(int historyId, string userId);
+        Task<List<UrlValueModel>> GetUrlValueAsync(string host, string userId);
     }
 }

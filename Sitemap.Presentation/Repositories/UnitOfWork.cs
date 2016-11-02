@@ -12,6 +12,19 @@ namespace Sitemap.Presentation.Repositories
         private IHistoryRepo<RequestHistory> hitoryRepository;
         private ISavedUrlRepo<SavedUrl> savedUrlRepository;
         private IResponseTimeRepo<ResponseTime> responseTimeRepository;
+        private IExtremeValues<ExtremeValues> extremeValuesRepositiry;
+
+        public IExtremeValues<ExtremeValues> ExtremeValues
+        {
+            get
+            {
+                if(extremeValuesRepositiry == null)
+                {
+                    extremeValuesRepositiry = new ExtremeValuesRepo(db);
+                }
+                return extremeValuesRepositiry;
+            }
+        }
 
         public IHistoryRepo<RequestHistory> Histories
         {

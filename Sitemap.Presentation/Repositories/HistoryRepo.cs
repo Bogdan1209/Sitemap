@@ -45,7 +45,7 @@ namespace Sitemap.Presentation.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public async void DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             RequestHistory history = await db.RequestHistories.FindAsync(id);
             if(history != null)

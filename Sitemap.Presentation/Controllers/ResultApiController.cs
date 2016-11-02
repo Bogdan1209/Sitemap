@@ -12,17 +12,14 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using Sitemap.Presentation.Interfaces;
 using AutoMapper;
+using Ninject;
 
 namespace Sitemap.Presentation.Controllers
 {
     public class ResultApiController : ApiController
     {
-        IUnitOfWork uow;
-
-        public ResultApiController(IUnitOfWork unitOfWork)
-        {
-            uow = unitOfWork;
-        }
+        [Inject]
+        public IUnitOfWork uow { private get; set; }
 
         [Authorize]
         [HttpGet]
@@ -57,7 +54,7 @@ namespace Sitemap.Presentation.Controllers
         [HttpPost]
         public async Task DeleteHistoryConfirmedAsync([FromBody] int id)
         {
-            uow.Histories.DeleteAsync(id);
+            await uow.Histories.DeleteAsync(id);
             await uow.SaveAsync();
         }
     }

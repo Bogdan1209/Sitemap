@@ -262,6 +262,10 @@
     <Compile Include="Migrations\201610241206558_migr5.Designer.cs">
       <DependentUpon>201610241206558_migr5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611021338080_migr6.cs" />
+    <Compile Include="Migrations\201611021338080_migr6.Designer.cs">
+      <DependentUpon>201611021338080_migr6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\ApplicationContext.cs" />
     <Compile Include="Models\Account\ApplicationUser.cs" />
@@ -1145,7 +1149,6 @@
     <Content Include="SignalR.Sample\jquery-1.10.2.min.map" />
     <Content Include="Views\Result\ShowListOfHistories.cshtml" />
     <Content Include="Views\Result\DeleteHistoryConfirm.cshtml" />
-    <Content Include="Views\Result\ShowListOfUrlsFromHistory.cshtml" />
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
@@ -1179,6 +1182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610241206558_migr5.resx">
       <DependentUpon>201610241206558_migr5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611021338080_migr6.resx">
+      <DependentUpon>201611021338080_migr6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

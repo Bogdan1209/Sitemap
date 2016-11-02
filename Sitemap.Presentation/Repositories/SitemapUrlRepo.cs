@@ -68,5 +68,23 @@ namespace Sitemap.Presentation.Repositories
 
             return evaluatedUrl;
         }
+        public async Task<List<UrlValueModel>> GetUrlValueAsync (string host, string userId)
+        {
+            List<UrlValueModel> urls = await (from url in db.SavedUrls
+                                              join extremVal in db.ExtremeValues on url.Id equals extremVal.UrlId
+                                              where url.Url.Contains(host) || extremVal.UserId == userId
+                                              select new UrlValueModel
+                                              {
+                                                  Url = url.Url,
+                                                  MinValue = extremVal.MinValue,
+                                                  MaxValue = extremVal.MaxValue,
+                                                  ValueId = extremVal.Id,
+                                                  UrlId = url.Id,
+                                                  UserId = userId
+                                              }).ToListAsync();
+            return urls;
+
+
+        }
     }
 }

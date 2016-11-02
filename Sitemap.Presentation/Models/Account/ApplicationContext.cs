@@ -9,7 +9,7 @@ namespace Sitemap.Presentation.Models
         public DbSet<RequestHistory> RequestHistories { get; set; }
         public DbSet<SavedUrl> SavedUrls { get; set; }
         public DbSet<ResponseTime> ResponseTime { get; set; }
-        public DbSet<ExtremeValuesModels> ExtremeValues { get; set; }
+        public DbSet<ExtremeValues> ExtremeValues { get; set; }
 
         public ApplicationContext() : base("DefaultConnection") { }
 

@@ -29,13 +29,6 @@ namespace Sitemap.Presentation.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<string> StartEvaluation(string url) //make it in api
-        {
-            StartResponseEvaluator result = new StartResponseEvaluator();
-            string res = await result.StartEvaluation(url, User.Identity.GetUserId(), 500);
-            return res;
-        }
 
         public ActionResult About()
         {

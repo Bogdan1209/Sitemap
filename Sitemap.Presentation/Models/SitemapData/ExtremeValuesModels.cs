@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Sitemap.Presentation.Models.SitemapData
 {
-    public class ExtremeValuesModels
+    public class ExtremeValues
     {
         public int Id { get; set; }
         public int UrlId { get; set; }

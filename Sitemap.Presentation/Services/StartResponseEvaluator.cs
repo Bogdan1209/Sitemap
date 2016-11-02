@@ -4,16 +4,15 @@ using System.Linq;
 using Sitemap.Presentation.Models.SitemapData;
 using Sitemap.Presentation.Repositories;
 using System.Threading.Tasks;
+using Sitemap.Presentation.Interfaces;
+using Ninject;
 
 namespace Sitemap.Presentation.Services
 {
     class StartResponseEvaluator
     {
-        UnitOfWork uow;
-        public StartResponseEvaluator()//us ninject
-        {
-            uow = new UnitOfWork();
-        }
+        [Inject]
+        public IUnitOfWork uow { private get; set; }
 
         public async Task<string> StartEvaluation(string url, string userId, int notMoreThan = int.MaxValue)
         {
@@ -23,13 +22,13 @@ namespace Sitemap.Presentation.Services
             RequestHistory history = await CreateHistoryAsync(url, userId);
             if (foundSitemap == null)
             {
-                await pageReader.LinksSearchOnPage(url, notMoreThan, history.ReqestHistoryId);
+                await pageReader.LinksSearchOnPage(url, notMoreThan, history.ReqestHistoryId, userId);
             }
             else
             {
                 for (int i = 0; i < foundSitemap.Count; i++)
                 {
-                    await pageReader.LinksSearchOnSitemap(foundSitemap[i], history.ReqestHistoryId);
+                    await pageReader.LinksSearchOnSitemap(foundSitemap[i], history.ReqestHistoryId, userId);
                 }
             }
             history.AverageTime = uow.ResponseTime.GetAverage(history.ReqestHistoryId);

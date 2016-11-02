@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Sitemap.Presentation.Interfaces
 {
-    interface IExtremeValues
+    public interface IExtremeValues<T> 
+        where T: class
     {
+        void Create(T item);
+        void Update(T item);
     }
 }

@@ -12,6 +12,6 @@ namespace Sitemap.Presentation.Interfaces
         Task<List<T>> FindByUserIdAsync(string userId);
         Task<T> FindByDomainAsync(string domain);
         void Update(T item);
-        void DeleteAsync(int id);
+        Task DeleteAsync(int id);
     }
 }

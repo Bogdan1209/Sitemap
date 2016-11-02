@@ -9,6 +9,7 @@ namespace Sitemap.Presentation.Interfaces
         IHistoryRepo<RequestHistory> Histories { get; }
         ISavedUrlRepo<SavedUrl> SavedUrls { get; }
         IResponseTimeRepo<ResponseTime> ResponseTime { get; }
+        IExtremeValues<ExtremeValues> ExtremeValues { get; }
         Task SaveAsync();
     }
 }
