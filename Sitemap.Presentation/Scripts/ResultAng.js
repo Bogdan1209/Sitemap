@@ -4,14 +4,14 @@ var ResultAngl = angular.module("ResultAngl", ['ngRoute']);
 
 ResultAngl.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
-    .when('Result/ShowHistory/:ReqestHistoryId', {
-        templateUrl: '/Result/ShowHistory',
+    .when('ShowHistory/:ReqestHistoryId', {
+        templateUrl: '/Views/Result/UrlFromHistory.cshtml',
         controller: 'UrlController'
     })
-    //.when('Result/ShowListOfHistory', {
-    //    templateUrl: '/Views/Result/ShowListOfHistory.cshtml',
-    //    controller: 'ResultController'
-    //});
+    .when('/Result/Result', {
+        templateUrl: 'Result/ShowListOfHistory',
+        controller: 'ResultController'
+    });
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false

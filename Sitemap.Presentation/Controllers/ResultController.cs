@@ -21,12 +21,14 @@ namespace Sitemap.Presentation.Controllers
         {
             uow = unitOfWork;
         }
-
+        public ActionResult Result()
+        {
+            return View();
+        }
         [Authorize]
         public ActionResult ShowListOfHistories()
         {
-            //return result.cshtml
-            return View("UrlFromHistory");
+            return View();
         }
 
         public ActionResult ShowHistory()
