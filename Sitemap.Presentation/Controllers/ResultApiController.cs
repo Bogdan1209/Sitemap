@@ -32,9 +32,10 @@ namespace Sitemap.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<List<UrlViewModel>> UrlsFromHistoryAsync(int historyId)
+        [Authorize]
+        public async Task<List<UrlViewModel>> UrlsFromHistoryAsync(int id)
         {
-            List<UrlViewModel> evaluatedUrl = await uow.SavedUrls.GetRespondTimeAsync(historyId, User.Identity.GetUserId());
+            List<UrlViewModel> evaluatedUrl = await uow.SavedUrls.GetRespondTimeAsync(id, User.Identity.GetUserId());
             return evaluatedUrl;
         }
 

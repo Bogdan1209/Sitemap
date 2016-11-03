@@ -9,15 +9,15 @@ namespace Sitemap.Presentation.App_Start
         {
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "ApiRoute",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "ApiRoute",
+            //    routeTemplate: "api/{controller}/{action}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 

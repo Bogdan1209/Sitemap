@@ -1114,6 +1114,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Module.js" />
     <Content Include="Scripts\Res.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -1148,8 +1149,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="SignalR.Sample\jquery-1.10.2.min.map" />
     <Content Include="Views\Result\ShowListOfHistories.cshtml" />
-    <Content Include="Views\Result\DeleteHistoryConfirm.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Result\UrlFromHistory.cshtml" />
+    <Content Include="Views\Result\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

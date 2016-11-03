@@ -25,7 +25,13 @@ namespace Sitemap.Presentation.Controllers
         [Authorize]
         public ActionResult ShowListOfHistories()
         {
-            return View();
+            //return result.cshtml
+            return View("UrlFromHistory");
+        }
+
+        public ActionResult ShowHistory()
+        {
+            return PartialView("ShowListOfHistories");
         }
 
     }

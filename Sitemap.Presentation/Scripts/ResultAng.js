@@ -1,7 +1,24 @@
 ﻿var uri = '';
 
-var ResultAngl = angular.module("ResultAngl", []);
-ResultAngl.controller("ResultController", function ($scope, ResultService, $http) {
+var ResultAngl = angular.module("ResultAngl", ['ngRoute']);
+
+ResultAngl.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+    $routeProvider
+    .when('Result/ShowHistory/:ReqestHistoryId', {
+        templateUrl: '/Result/ShowHistory',
+        controller: 'UrlController'
+    })
+    //.when('Result/ShowListOfHistory', {
+    //    templateUrl: '/Views/Result/ShowListOfHistory.cshtml',
+    //    controller: 'ResultController'
+    //});
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+}]);
+
+ResultAngl.controller("ResultController", function ($scope, ResultService, $http, $location) {
     getHistories();
     function getHistories(){
         ResultService.getHistories()
@@ -11,23 +28,18 @@ ResultAngl.controller("ResultController", function ($scope, ResultService, $http
         .error(function(error){
             $scope.status = 'Unable to load customer data: ' + error.message;
         });
-    }
-    function getUrl() {
-        ResultService.getUrl()
-            .success(function(urls){
-                $scope.urls = urls;
-            })
-            .error(function (error) {
-                $scope.status = 'Unable to load customer data: ' + error.message;
-            });
-    }
+    } 
+
+    $scope.getUrlOfHistory = function (id) {
+        $location.path("/ShowHistory/" + id);
+    };
 
     $scope.startEvaluation = function (url) {
         ResultService.startEvaluation(url)
         .success(function (res) {
             $scope.evalutionResult = res;
-        })
-    }
+        });
+    };
 
     $scope.deleteHistory = function (id) {
         ResultService.deleteHist(id)
@@ -50,6 +62,20 @@ ResultAngl.controller("ResultController", function ($scope, ResultService, $http
     };
 });
 
+ResultAngl.controller("UrlController", ['$scope', 'ResultService', '$http', '$routeParams', function ($scope, ResultService, $http, $routeParams) {
+    var responseHistoryId = $routeParams.ReqestHistoryId;
+    getUrlOfHistory(responseHistoryId);
+    function getUrlOfHistory(historyId) {
+        ResultService.getUrl(historyId)
+            .success(function (urls) {
+                $scope.urls = urls;
+            })
+            .error(function (error) {
+                $scope.status = 'Unable to load customer data: ' + error.message;
+            });
+    };
+}]);
+
 ResultAngl.factory("ResultService", ['$http', function($http){
     
     var ResultService = {};
@@ -59,11 +85,8 @@ ResultAngl.factory("ResultService", ['$http', function($http){
             url: '/api/HomeApi',
             dataType: 'json',
             method: 'POST',
-            data: JSON.stringify(url),
-            //headers: {
-            //    "Content-Type": "application/json"
-            //}
-        })
+            data: JSON.stringify(url)
+        });
     };
 
     ResultService.confirmDeleteHistory = function (id) {
@@ -71,22 +94,22 @@ ResultAngl.factory("ResultService", ['$http', function($http){
             url: '/api/ResultApi/DeleteHistoryConfirmedAsync',
             dataType: 'json',
             method: 'POST',
-            data:id,
+            data: id,
             headers: {
                 "Content-Type": "application/json"
             }
-        })
-    }
+        });
+    };
 
     ResultService.getHistories = function () {
         return $http.get('/api/ResultApi/GetHistoryAsync');
     };
 
-    ResultService.getUrl = function () {
-        return $http.get('/api/ResultApi/UrlsFromHistoryAsync');
+    ResultService.getUrl = function (id) {
+        return $http.get('/api/ResultApi/UrlsFromHistoryAsync/' + id);
     };
     ResultService.deleteHist = function (data) {
-        return $http.get('/api/ResultApi/DeleteHistoryAsync/' + data)
+        return $http.get('/api/ResultApi/DeleteHistoryAsync/' + data);
     };
     return ResultService;
 

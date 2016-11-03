@@ -21,5 +21,5 @@
            .error(function (error) {
                alert(error);
            });
-    }
+    };
 };
