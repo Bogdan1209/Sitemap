@@ -21,14 +21,28 @@ namespace Sitemap.Presentation.Controllers
         [Inject]
         public IUnitOfWork uow { private get; set; }
 
-        [Authorize]
+        /* [Authorize]
+         [HttpGet]
+         [Route("api/resultapi/GetHistoryAsync")]
+         public async Task<List<HistoriesViewModel>> GetHistoryAsync2()
+         {
+             Mapper.Initialize(hvm => hvm.CreateMap<RequestHistory, HistoriesViewModel>());
+            var availableHistories = Mapper.Map<List<RequestHistory>, List<HistoriesViewModel>>(await uow.Histories.FindByUserIdAsync(User.Identity.GetUserId()));
+            return availableHistories;
+        }*/
         [HttpGet]
-        [Route("api/resultapi/GetHistoryAsync")]
-        public async Task<List<HistoriesViewModel>> GetHistoryAsync()
+        [Authorize]
+        [Route("api/resultapi/GetHistoryAsync/{pageNumber:int?}/{orderBy:alpha?}")]
+        public async Task<HistoriesPageViewModel> GetHistoryAsync(int pageNumber = 1, string orderBy = "")
         {
             Mapper.Initialize(hvm => hvm.CreateMap<RequestHistory, HistoriesViewModel>());
             var availableHistories = Mapper.Map<List<RequestHistory>, List<HistoriesViewModel>>(await uow.Histories.FindByUserIdAsync(User.Identity.GetUserId()));
-            return availableHistories;
+
+            int pageSize = 3; // количество объектов на страницу
+            IEnumerable<HistoriesViewModel> historiesPage = availableHistories.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = pageNumber, PageSize = pageSize, TotalItems = availableHistories.Count() };
+            HistoriesPageViewModel hpvm = new HistoriesPageViewModel { PageInfo = pageInfo, Histories = historiesPage };
+            return hpvm;
         }
 
         [HttpGet]

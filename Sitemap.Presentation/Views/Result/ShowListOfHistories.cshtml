@@ -23,9 +23,9 @@
             <tbody>
                 <tr ng-repeat="r in histories | filter : searchHistory" ng-click="getUrlOfHistory(r.ReqestHistoryId)">
                     <td>{{ $index + 1 }}</td>
-                    <td>{{r.SiteDomain}}</td>
-                    <td>{{r.TimeOfStart}}</td>
-                    <td>{{r.AverageTime}}</td>
+                    <td>{{r.siteDomain}}</td>
+                    <td>{{r.timeOfStart}}</td>
+                    <td>{{r.averageTime}}</td>
                     <td><span class="glyphicon glyphicon-remove" 
                               ng-click="deleteHistory(r.ReqestHistoryId)"
                               data-toggle="modal" data-target="#myModal">
@@ -75,5 +75,6 @@
 </div>
 
 @section scripts{
-    <script src="~/Scripts/ResultAng.js"></script>   
+    <script src="~/Scripts/ResultAng.js"></script>  
+    <script src="~/Scripts/Factory.js"></script> 
 }

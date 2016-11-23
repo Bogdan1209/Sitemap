@@ -12,17 +12,14 @@ using Sitemap.Presentation.Repositories;
 using Sitemap.Presentation.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using Ninject;
 
 namespace Sitemap.Presentation.Controllers
 {
     public class HomeController : Controller
     {
-        IUnitOfWork uow;
-
-        public HomeController(IUnitOfWork unitOfWork)
-        {
-            uow = unitOfWork;
-        }
+        [Inject]
+        public IUnitOfWork uow { private get; set; }
 
         public ActionResult Index()
         {

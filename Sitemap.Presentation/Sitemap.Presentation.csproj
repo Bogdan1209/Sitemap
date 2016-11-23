@@ -273,6 +273,7 @@
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
     <Compile Include="Models\SitemapData\ExtremeValuesModels.cs" />
+    <Compile Include="Models\SitemapData\PagingModels.cs" />
     <Compile Include="Models\SitemapData\ViewModels.cs" />
     <Compile Include="Models\SitemapData\RequestHistoryModels.cs" />
     <Compile Include="Models\SitemapData\ResponseTimeModels.cs" />
@@ -353,6 +354,7 @@
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Factory.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-et.js" />
@@ -1121,6 +1123,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ResultAng.js" />
+    <Content Include="Scripts\StartController.js" />
+    <Content Include="Scripts\UrlController.js" />
     <Content Include="Scripts\Util.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="SignalR.Sample\jquery-1.10.2.min.js" />

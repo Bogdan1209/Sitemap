@@ -10,17 +10,15 @@ using Sitemap.Presentation.Repositories;
 using Sitemap.Presentation.Models.SitemapData;
 using Sitemap.Presentation.Interfaces;
 using System.Threading;
+using Ninject;
 
 namespace Sitemap.Presentation.Controllers
 {
     public class ResultController : Controller
     {
-        IUnitOfWork uow;
+        [Inject]
+        public IUnitOfWork uow { private get; set; }
 
-        public ResultController(IUnitOfWork unitOfWork)
-        {
-            uow = unitOfWork;
-        }
         public ActionResult Result()
         {
             return View();
