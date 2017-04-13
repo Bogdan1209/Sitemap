@@ -12,11 +12,11 @@ using Microsoft.AspNet.Identity;
 using AutoMapper;
 using Sitemap.Presentation.Interfaces;
 using Ninject;
-
+//REFACRORING ALL. OMG SHIT CODE
 namespace Sitemap.Presentation.Services
-{
+{//REFACRORING ALL. OMG SHIT CODE
     class PageReaderService : ParseService
-    {
+    {//REFACRORING ALL. OMG SHIT CODE
         [Inject]
         public IUnitOfWork uow { private get; set; }
 

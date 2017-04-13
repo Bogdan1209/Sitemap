@@ -66,7 +66,7 @@ namespace Sitemap.Presentation.Services
                 responseTime.Stop();
                 return (int)responseTime.ElapsedMilliseconds;
             }
-            catch (WebException webExcp) //rewrite it
+            catch (WebException webExcp) //CONSOLE OUTPUT!!! FIX IT!!!
             {
                 HttpWebResponse httpResponse = (HttpWebResponse)webExcp.Response;
                 WebExceptionStatus status = webExcp.Status;

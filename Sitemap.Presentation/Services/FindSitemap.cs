@@ -45,10 +45,7 @@ namespace Sitemap.Presentation.Services
                 urls.Add(pathToSitemap);
                 return urls;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
         /// <summary>
         /// Try find pathes to sitemap on page
