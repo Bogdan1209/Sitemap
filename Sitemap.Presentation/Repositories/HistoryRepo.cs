@@ -34,6 +34,12 @@ namespace Sitemap.Presentation.Repositories
             return await histories.ToListAsync();
         }
 
+        public List<RequestHistory> FindByUserId(string userId)
+        {
+            IQueryable<RequestHistory> histories = db.RequestHistories.Where(h => h.UserId == userId);
+            return histories.ToList();
+        }
+
         public async Task<RequestHistory> FindByDomainAsync(string domain)
         {
             RequestHistory histories = await db.RequestHistories.FirstOrDefaultAsync(h => h.SiteDomain == domain);

@@ -1,4 +1,5 @@
-﻿var ResultAngl = angular.module("ResultAngl", ['ngRoute']);
+﻿/*
+var ResultAngl = angular.module("ResultAngl", ['ngRoute']);
 
 ResultAngl.controller("startController", function ($scope, ResultService, $http, $location) {
 
@@ -9,3 +10,4 @@ ResultAngl.controller("startController", function ($scope, ResultService, $http,
         });
     };
 });
+*/

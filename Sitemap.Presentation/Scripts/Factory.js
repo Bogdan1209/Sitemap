@@ -1,4 +1,4 @@
-﻿var ResultAngl = angular.module("ResultAngl");
+﻿/*var ResultAngl = angular.module("ResultAngl");
 ResultAngl.factory("ResultService", ['$http', function ($http) {
 
     var ResultService = {};
@@ -10,9 +10,9 @@ ResultAngl.factory("ResultService", ['$http', function ($http) {
             method: 'POST',
             data: JSON.stringify(url)
         });
-    };
+    };*/
 
-    ResultService.confirmDeleteHistory = function (id) {
+   /* ResultService.confirmDeleteHistory = function (id) {
         return $http({
             url: '/api/ResultApi/DeleteHistoryConfirmedAsync',
             dataType: 'json',
@@ -23,8 +23,8 @@ ResultAngl.factory("ResultService", ['$http', function ($http) {
             }
         });
     };
-
-    ResultService.getHistories = function () {
+    */
+   /* ResultService.getHistories = function () {
         return $http.get('/api/ResultApi/GetHistoryAsync');
     };
 
@@ -37,4 +37,4 @@ ResultAngl.factory("ResultService", ['$http', function ($http) {
     return ResultService;
 
 
-}]);
+}]);*/

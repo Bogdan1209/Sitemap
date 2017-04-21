@@ -1,4 +1,4 @@
-﻿var app = angular.module("ApplicationModule", ["ngRoute"]);
+﻿/*var app = angular.module("ApplicationModule", ["ngRoute"]);
 
 app.factory("ShareData", function () {
     return { value: 0 };
@@ -24,3 +24,4 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
 
     $locationProvider.html5Mode(true).hashPrefix('!');
 }]);
+*/

@@ -12,8 +12,10 @@ namespace Sitemap.Presentation
                         "~/Scripts/angular.js",
                         "~/Scripts/angular-route.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/signalR").Include(
-                "~/Scripts/jquery.signalR-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/angularApp").Include(
+                "~/Scripts/sitemapApp.js")
+                .IncludeDirectory("~/Scripts/Factories","*.js")
+                .IncludeDirectory("~/Scripts/Controllers","*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery.unobtrusive").Include(
                 "~/Scripts/jquery.unobtrusive-ajax.js"));

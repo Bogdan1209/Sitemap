@@ -31,7 +31,7 @@ namespace Sitemap.Presentation.Controllers
 
         public ActionResult ShowHistory()
         {
-            return PartialView("ShowListOfHistories");
+            return View("Result");
         }
 
     }

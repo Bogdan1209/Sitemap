@@ -290,10 +290,6 @@
     <Compile Include="Services\ParseService.cs" />
     <Compile Include="Services\RegexPatternService.cs" />
     <Compile Include="Services\StartResponseEvaluator.cs" />
-    <Compile Include="SignalR.Sample\Startup.cs" />
-    <Compile Include="SignalR.Sample\Stock.cs" />
-    <Compile Include="SignalR.Sample\StockTicker.cs" />
-    <Compile Include="SignalR.Sample\StockTickerHub.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -319,6 +315,10 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Controllers\historiesController.js" />
+    <Content Include="Scripts\Controllers\startEvaluationController.js" />
+    <Content Include="Scripts\Factories\historiesFactory.js" />
+    <Content Include="Scripts\Factories\startEvaluationFactory.js" />
     <Content Include="Scripts\Factory.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
@@ -346,15 +346,11 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ResultAng.js" />
+    <Content Include="Scripts\SitemapApp.js" />
     <Content Include="Scripts\StartController.js" />
     <Content Include="Scripts\UrlController.js" />
     <Content Include="Scripts\Util.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="SignalR.Sample\jquery-1.10.2.min.js" />
-    <Content Include="SignalR.Sample\jquery.color-2.1.2.min.js" />
-    <Content Include="SignalR.Sample\SignalR.StockTicker.js" />
-    <Content Include="SignalR.Sample\StockTicker.css" />
-    <Content Include="SignalR.Sample\StockTicker.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -374,7 +370,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="SignalR.Sample\jquery-1.10.2.min.map" />
     <Content Include="Views\Result\ShowListOfHistories.cshtml" />
     <Content Include="Views\Result\UrlFromHistory.cshtml" />
     <Content Include="Views\Result\Result.cshtml" />

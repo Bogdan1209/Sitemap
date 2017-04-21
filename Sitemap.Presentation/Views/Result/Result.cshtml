@@ -4,9 +4,75 @@
 }
 
 <h2>Result</h2>
-<div ng-app="ResultAngl" class="container">
-    <ng-view></ng-view>
+<div ng-app="sitemapApp"  ng-controller="historiesController" class="container">
+    <base href="/" />
+    <br />
+    <input type="text" placeholder="Search History" ng-model="searchHistory" />
+    <br />
+    <div>
+
+        <table class="table table-hover" ng-init="getHistories()">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Domain of site</th>
+                    <th>Time of start</th>
+                    <th>Average time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="r in histories.data" ng-click="getUrlOfHistory(r.ReqestHistoryId)">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{r.siteDomain}}</td>
+                    <td>{{r.timeOfStart}}</td>
+                    <td>{{r.averageTime}}</td>
+                    <td>
+                        <span class="glyphicon glyphicon-remove"
+                              ng-click="deleteHistory(r.ReqestHistoryId)"
+                              data-toggle="modal" data-target="#myModal">
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirm delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <dl>
+                            <dt>Site</dt>
+                            <dd>
+                                {{hist.SiteDomain}}
+                            </dd>
+                            <dt>Time</dt>
+                            <dd>
+                                {{hist.AverageTime}}
+                            </dd>
+                        </dl>
+                    </div>
+                    <button type="submit" ng-click="confirmDeleteHistory(hist.ReqestHistoryId)"
+                            id="approve-btn" class="btn btn-danger">
+                        Confirm delete
+                    </button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<hr />
+<div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-content"></div>
 </div>
 @section scripts{
-    <script src="~/Scripts/ResultAng.js"></script>
 }

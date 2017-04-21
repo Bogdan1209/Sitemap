@@ -11,8 +11,15 @@ namespace Sitemap.Presentation.Services
 {
     class StartResponseEvaluator
     {
-        [Inject]
-        public IUnitOfWork uow { private get; set; }
+        IUnitOfWork uow;
+        public StartResponseEvaluator()
+        {
+            IKernel ninjectKernel = new StandardKernel();
+            ninjectKernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            uow = ninjectKernel.Get<IUnitOfWork>();
+        }
+        //[Inject]
+        //public IUnitOfWork uow { private get; set; }
 
         public async Task<string> StartEvaluation(string url, string userId, int notMoreThan = int.MaxValue)
         {

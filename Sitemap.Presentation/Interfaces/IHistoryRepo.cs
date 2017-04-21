@@ -10,6 +10,7 @@ namespace Sitemap.Presentation.Interfaces
         void Create(T item);
         Task<T> FindByIdAsync(int id);
         Task<List<T>> FindByUserIdAsync(string userId);
+        List<T> FindByUserId(string userId);
         Task<T> FindByDomainAsync(string domain);
         void Update(T item);
         Task DeleteAsync(int id);

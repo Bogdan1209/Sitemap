@@ -1,0 +1,1 @@
+﻿var sitemapApp = angular.module("sitemapApp", []);

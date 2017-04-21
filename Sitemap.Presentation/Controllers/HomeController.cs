@@ -18,9 +18,6 @@ namespace Sitemap.Presentation.Controllers
 {
     public class HomeController : Controller
     {
-        [Inject]
-        public IUnitOfWork uow { private get; set; }
-
         public ActionResult Index()
         {
             return View();
