@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "DosAttack";
+}
+
+<h2>DosAttack</h2>
+
+<div ng-app="sitemapApp" ng-controller="dosAttackController" class="container">
+
+    <div id="dosDiv">
+        <p>
+            <b>Input URL of a testing site</b><br>
+            <input type="text" ng-model="getUrl" name="getUrl" />
+        </p>
+        <p>
+            <b>Count of users</b>
+            <input type="number" value="1" max="50" ng-model="countOfUsers" name="countOfUsers" />
+        </p>
+        <button value="Check" name="checkUrlBtn" ng-click="startDos(getUrl, countOfUsers)">Start</button>
+    </div>
+    <div>
+        <button name="startDosBtn" ng-click="changeDosState()">Pause/Start</button>
+    </div>
+    <div>
+        {{attacking}}
+    </div>
+</div>

@@ -10,6 +10,8 @@ namespace Sitemap.Presentation.Models
         public DbSet<SavedUrl> SavedUrls { get; set; }
         public DbSet<ResponseTime> ResponseTime { get; set; }
         public DbSet<ExtremeValues> ExtremeValues { get; set; }
+        public DbSet<DosAttackModel> DosAttacks { get; set; }
+        public DbSet<SqlInjectionModel> SqlInjection { get; set; }
 
         public ApplicationContext() : base("DefaultConnection") { }
 

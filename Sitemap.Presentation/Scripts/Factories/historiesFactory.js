@@ -4,7 +4,7 @@ sitemapApp.factory('historiesService', ['$http', function ($http) {
 
     var historiesService = {};
 
-    historiesService.deleteConfirm = function (id, $http) {
+    historiesService.deleteConfirm = function (id) {
         return $http({
             url: '/api/ResultApi/DeleteHistoryConfirmedAsync',
             dataType: 'json',
@@ -16,11 +16,13 @@ sitemapApp.factory('historiesService', ['$http', function ($http) {
         });
     };
 
-    historiesService.getHistories = function () {
-        return $http.get('/api/ResultApi/GetHistoryAsync');
+    historiesService.getHistories = function (pageNumber, orderBy) {
+        if (pageNumber === undefined) pageNumber = 1;
+        if (orderBy === undefined) orderBy = "";
+        return $http.get('/api/ResultApi/GetHistoryAsync/' + pageNumber + '/' + orderBy);
     };
 
-    historiesService.getUrl = function (id) {
+    historiesService.getUrls = function (id) {
         return $http.get('/api/ResultApi/UrlsFromHistoryAsync/' + id);
     };
     historiesService.deleteHist = function (data) {

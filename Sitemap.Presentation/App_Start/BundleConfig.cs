@@ -10,7 +10,8 @@ namespace Sitemap.Presentation
         {
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js",
-                        "~/Scripts/angular-route.js"));
+                        "~/Scripts/angular-route.js",
+                        "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angularApp").Include(
                 "~/Scripts/sitemapApp.js")

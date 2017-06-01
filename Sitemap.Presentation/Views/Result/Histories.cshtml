@@ -21,20 +21,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="r in histories.data" ng-click="getUrlOfHistory(r.ReqestHistoryId)">
-                    <td>{{ $index + 1 }}</td>
+                <tr ng-repeat="r in histories" ng-click="getUrlOfHistory(r.ReqestHistoryId)">
+                    <td>{{ (currentPage - 1) * itemsPerPage + $index + 1 }}</td>
                     <td>{{r.siteDomain}}</td>
                     <td>{{r.timeOfStart}}</td>
                     <td>{{r.averageTime}}</td>
                     <td>
                         <span class="glyphicon glyphicon-remove"
-                              ng-click="deleteHistory(r.ReqestHistoryId)"
+                              ng-click="deleteHistory(r.reqestHistoryId)"
                               data-toggle="modal" data-target="#myModal">
                         </span>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages" ng-change="pageChanged()"></ul>
+
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -46,20 +48,24 @@
                         <dl>
                             <dt>Site</dt>
                             <dd>
-                                {{hist.SiteDomain}}
+                                {{hist.siteDomain}}
                             </dd>
-                            <dt>Time</dt>
+                            <dt>Average Time</dt>
                             <dd>
-                                {{hist.AverageTime}}
+                                {{hist.averageTime}}
+                            </dd>
+                            <dt>Time Of Start</dt>
+                            <dd>
+                                {{hist.timeOfStart}}
                             </dd>
                         </dl>
                     </div>
-                    <button type="submit" ng-click="confirmDeleteHistory(hist.ReqestHistoryId)"
+                    <button type="submit" ng-click="confirmDeleteHistory(hist.reqestHistoryId)"
                             id="approve-btn" class="btn btn-danger">
                         Confirm delete
                     </button>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="closeModalBtn" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
 

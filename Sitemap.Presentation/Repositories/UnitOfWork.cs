@@ -13,6 +13,32 @@ namespace Sitemap.Presentation.Repositories
         private ISavedUrlRepo<SavedUrl> savedUrlRepository;
         private IResponseTimeRepo<ResponseTime> responseTimeRepository;
         private IExtremeValues<ExtremeValues> extremeValuesRepositiry;
+        private SqlInjectionRepo sqlInjection;
+        private DosAttackRepo dosAttack;
+
+        public SqlInjectionRepo SqlInjection
+        {
+            get
+            {
+                if (sqlInjection == null)
+                {
+                    sqlInjection = new SqlInjectionRepo(db);
+                }
+                return sqlInjection;
+            }
+        }
+
+        public DosAttackRepo DosAttack
+        {
+            get
+            {
+                if (dosAttack == null)
+                {
+                    dosAttack = new DosAttackRepo(db);
+                }
+                return dosAttack;
+            }
+        }
 
         public IExtremeValues<ExtremeValues> ExtremeValues
         {

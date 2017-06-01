@@ -3,6 +3,13 @@
     padding-bottom: 0px;
 }
 
+#loginInject {
+    display:block
+}
+#getInject {
+    display: none;
+}
+
 .glyphicon-remove {
     color: #ff6666;
 }

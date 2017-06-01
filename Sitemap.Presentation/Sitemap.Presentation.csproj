@@ -221,14 +221,18 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DosAttackApiController.cs" />
+    <Compile Include="Controllers\DosAttackController.cs" />
     <Compile Include="Controllers\HomeApiController.cs" />
+    <Compile Include="Controllers\InjectionApiController.cs" />
     <Compile Include="Controllers\ResultApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
+    <Compile Include="Controllers\SqlInjectionController.cs" />
+    <Compile Include="ExtentionMethods\SqlInjectionExtention.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\UpdateTableHub.cs" />
     <Compile Include="Interfaces\IExtremeValues.cs" />
     <Compile Include="Interfaces\IHistoryRepo.cs" />
     <Compile Include="Interfaces\IResponseTimeRepo.cs" />
@@ -272,23 +276,29 @@
     <Compile Include="Models\Account\ApplicationUserManager.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
+    <Compile Include="Models\SitemapData\DosAttackModel.cs" />
     <Compile Include="Models\SitemapData\ExtremeValuesModels.cs" />
     <Compile Include="Models\SitemapData\PagingModels.cs" />
+    <Compile Include="Models\SitemapData\SqlInjectionModel.cs" />
     <Compile Include="Models\SitemapData\ViewModels.cs" />
     <Compile Include="Models\SitemapData\RequestHistoryModels.cs" />
     <Compile Include="Models\SitemapData\ResponseTimeModels.cs" />
     <Compile Include="Models\SitemapData\SavedUrlModels.cs" />
     <Compile Include="NinjectFolder\NinjectDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DosAttackRepo.cs" />
     <Compile Include="Repositories\ExtremeValuesRepo.cs" />
     <Compile Include="Repositories\HistoryRepo.cs" />
     <Compile Include="Repositories\ResponseTimeRepo.cs" />
     <Compile Include="Repositories\SitemapUrlRepo.cs" />
+    <Compile Include="Repositories\SqlInjectionRepo.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
+    <Compile Include="Services\DosAttack.cs" />
     <Compile Include="Services\FindSitemap.cs" />
     <Compile Include="Services\PageReader.cs" />
     <Compile Include="Services\ParseService.cs" />
     <Compile Include="Services\RegexPatternService.cs" />
+    <Compile Include="Services\SqlInjection.cs" />
     <Compile Include="Services\StartResponseEvaluator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -296,6 +306,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -311,13 +322,23 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Controllers\dosAttackController.js" />
     <Content Include="Scripts\Controllers\historiesController.js" />
+    <Content Include="Scripts\Controllers\injectionController.js" />
+    <Content Include="Scripts\Controllers\urlsController.js" />
     <Content Include="Scripts\Controllers\startEvaluationController.js" />
+    <Content Include="Scripts\Factories\dosAttackFactory.js" />
     <Content Include="Scripts\Factories\historiesFactory.js" />
+    <Content Include="Scripts\Factories\InjectionFactory.js" />
+    <Content Include="Scripts\Factories\urlsFactory.js" />
     <Content Include="Scripts\Factories\startEvaluationFactory.js" />
     <Content Include="Scripts\Factory.js" />
     <Content Include="Scripts\angular.min.js.map" />
@@ -372,7 +393,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Result\ShowListOfHistories.cshtml" />
     <Content Include="Views\Result\UrlFromHistory.cshtml" />
-    <Content Include="Views\Result\Result.cshtml" />
+    <Content Include="Views\Result\Histories.cshtml" />
+    <Content Include="Views\SqlInjection\Injection.cshtml" />
+    <Content Include="Views\DosAttack\DosAttack.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

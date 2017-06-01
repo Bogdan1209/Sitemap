@@ -19,10 +19,13 @@ namespace Sitemap.Presentation.Models.SitemapData
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public ApplicationUser ApplicationUser { get; set; }
+        public ICollection<DosAttackModel> DosAttack { get; set; }
         public ICollection<ResponseTime> ResponseTime { get; set; }
+        public ICollection<SqlInjectionModel> SqlInjection { get; set; }
         public RequestHistory()
         {
             ResponseTime = new List<ResponseTime>();
+            DosAttack = new List<DosAttackModel>();
         }
     }
 }

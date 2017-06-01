@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
-using Sitemap.Presentation.Hubs;
 using Sitemap.Presentation.Models.SitemapData;
 using Sitemap.Presentation.Services;
 using Sitemap.Presentation.Repositories;

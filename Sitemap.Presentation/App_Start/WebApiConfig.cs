@@ -10,11 +10,11 @@ namespace Sitemap.Presentation.App_Start
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
+           /* config.Routes.MapHttpRoute(
                 name: "ApiRoute",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
+            );*/
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

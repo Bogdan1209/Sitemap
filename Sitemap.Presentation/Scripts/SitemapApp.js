@@ -1,1 +1,1 @@
-﻿var sitemapApp = angular.module("sitemapApp", []);
+﻿var sitemapApp = angular.module("sitemapApp", ['ui.bootstrap']);

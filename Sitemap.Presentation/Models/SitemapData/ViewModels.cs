@@ -27,4 +27,16 @@ namespace Sitemap.Presentation.Models.SitemapData
         public DateTime TimeOfStart { get; set; }
         public double AverageTime { get; set; }
     }
+
+    public class LoginDataForInjection
+    {
+        public string Login { get; set; }
+        public string Url { get; set; }
+    }
+
+    public class DosAttackViewModel
+    {
+        public string ip { get; set; }
+        public int countOfUsers { get; set; }
+    }
 }

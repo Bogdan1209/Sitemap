@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Injection";
+}
+
+<h2>Injection</h2>
+
+<div ng-app="sitemapApp" ng-controller="injectionController" class="container">
+    <select ng-change="getShow()" ng-options="injection as injection.name for injection in injections" ng-model="item">
+    </select>
+    <div id="loginInject">
+        <p>
+            <b>Exist login on your site</b><br>
+            <input type="text" ng-model="login" name="login" />
+        </p>
+        <p>
+            <b>Path to register script</b><br>
+            <input type="text" ng-model="url" name="url" />
+        </p>
+        <button value="Check" name="checkLoginBtn" ng-click="postInjection(login,url)">Check</button>
+    </div>
+    <div id="getInject">
+        <p>
+            <b>Input URL with GET request</b><br>
+            <input type="text"  ng-model="getUrl" name="getUrl" />
+        </p>
+        <button value="Check" name="checkUrlBtn" ng-click="getInjection(getUrl)">Check</button>
+    </div>
+
+    <div>
+        {{getInjectionResult}}
+        {{loginInjectResult}}
+    </div>
+</div>
